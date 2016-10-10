@@ -1,5 +1,4 @@
 function loadData() {
-
     var $body = $('body');
     var $wikiElem = $('#wikipedia-links');
     //var $greeting = $('#greeting');
@@ -16,11 +15,7 @@ function loadData() {
 	urlWiki += $.param({
 		'search': wSearch, 
 		'format': "json",
-		/*'prop': "pageimages",*/
 		'callback': "wikiCallback"});
-		//console.log(urlWiki);
-
-		//'format': "jsonfm"});
 	
 	var wikiRequestTimeout = setTimeout(function(){
 		$wikiElem.text("failed to get wikipedia resources");
@@ -30,33 +25,49 @@ function loadData() {
 		url: urlWiki, 
 		dataType: "jsonp",
 		success: function( response ){
-			console.log(response);
 			var sites = response[1];
 			var description = response[2];
 			var urls = response[3];
-			$("#wikipedia-header").html("Relevant Wikipedia Links related to " +wSearch);
-			//$("#inner").removeClass("container4");
+			$("#wikipedia-header").html("Wikipedia Links related to " +wSearch);
 			$.each(sites, function(index, value){
-				$("<li class='wikilink'> " + "<h3><a href='" + urls[index] + "' target='_blank'>"  + value + "</a></h3>" + description[index] + "</li>").appendTo("#wikipedia-links");		
+				$("<li class='wikilink'><h3><a href='" + urls[index] + "' target='_blank'>"  + value + "</a></h3>" + description[index] + "</li>").appendTo("#wikipedia-links");
 		   });
 		   clearTimeout(wikiRequestTimeout);
+		   for(i=0;i<response[1].length;i++) {
+				$.ajax({
+	            url: "https://en.wikipedia.org/w/api.php",
+	            dataType: "jsonp",
+	            data: {
+	                'action': "query",
+	                'format': "json",
+					'prop': "pageimages",
+	                'titles': response[1][i],
+					'formatversion': "2"
+	            },
+	            success: function(data) {
+				var $listItem = $( "li:contains('" +data.query.pages[0].title +"')" );
+					if (data.query.pages[0].thumbnail)  {
+							for(j=0;j<response[1].length;j++) {
+								if(response[1][j]==data.query.pages[0].title){
+									$( "li:eq(" +j +")").prepend("<img src='" +data.query.pages[0].thumbnail.source +"' alt='Wiki thumbnail' style='float:left;width:60px;height:60px;'>");
+								}
+							}	
+					}
+	            }
+		   });
+		   }  	   
 	   }
 	});
 
+	
     return false;
 }
 
 $('#searchform').submit(loadData);
 
-/*
-function randomWiki() {
-    console.log("Hello World");
-	location.href = "https://en.wikipedia.org/wiki/Special:Random target='_blank'";
-}*/
 
 $(".text_input").autocomplete({
 	    source: function(request, response) {
-			console.log("haabla");
 	        $.ajax({
 	            url: "http://en.wikipedia.org/w/api.php",
 	            dataType: "jsonp",
@@ -67,7 +78,6 @@ $(".text_input").autocomplete({
 	            },
 	            success: function(data) {
 	                response(data[1]);
-					console.log(data);
 	            }
 	        });
 	    }

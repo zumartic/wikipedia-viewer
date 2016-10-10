@@ -3,38 +3,40 @@
 	<head>
 	  <!-- title and meta -->
 	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width,initial-scale=1">
+	  <!--meta name="viewport" content="width=device-width,initial-scale=1"-->
 	  <meta name="description" content="Wikipedia Viewer API JSON call">
 	  <title>Wikipedia viewer</title>
 
 	  <!-- css -->
 	  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet"> 
 	  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
-	  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+	  <!--link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'-->
 	  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 	  <link rel="stylesheet" href="css/style.css">
 	</head>
 	
 	<body>
-		<div id="container"> <!-- class="container-fluid">  -->
-		   <!--<div id="header">
-		   <h2>Wikipedia Viewer</h2></div>           method="get"       -->
-		   <div id="inner" class="container4">
-			<form id="searchform">
-				<fieldset>
-					<input id="wikiSearch" name="s" type="text"
-						value="Enter Keyword" class="text_input"
-			            onblur="if(this.value==''){this.value='Enter Keyword';}"
-			            onfocus="if(this.value =='Enter Keyword') {this.value=''; }" />
-				<input name="submit" type="submit"  value="" />
-				<a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank"><button class="btn btn-default" type="button"><i class="fa fa-random" aria-hidden="true"></i> Random</button></a>
-				</fieldset>
-			</form>
-											
-		   <h2 id="wikipedia-header">Search for wikipedia articles</h2>
-		   <ul id="wikipedia-links"></ul>	
+		  <div id="header">
+				<form id="searchform">
+					<div class="input-group">
+						<input id="wikiSearch" name="s" type="text" value="Enter Keyword" class="form-control text_input" onblur="if(this.value==''){this.value='Enter Keyword';}"
+								onfocus="if(this.value =='Enter Keyword') {this.value=''; }" />
+						<!--<span class="input-group-btn">-->
+							<button class="btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+						<!--</span>-->
+						<a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank"><button class="btn" type="button"><i class="fa fa-random" aria-hidden="true"></i> Random</button></a>
+					</div><!-- /input-group -->
+				</form>
 			</div>
-		<div id="footer">Site developed by Sami Kangas 2016 with <i class="fa fa-lg fa-music"></i> and <i class="fa fa-lg fa-heart"></i></div></div>
+		
+			<div id="inner"> 
+				<h2 id="wikipedia-header">Search for wikipedia articles</h2>
+				<ul id="wikipedia-links"></ul>	
+			</div>
+		
+			<div id="footer">Site developed by <a href="https://fi.linkedin.com/in/sami-kangas" target="_blank">Sami Kangas 2016</a> with <i class="fa fa-lg fa-music"></i> and <i class="fa fa-lg fa-heart"></i>
+			</div>
+		
 		<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 		<script src='js/script.js'></script>
