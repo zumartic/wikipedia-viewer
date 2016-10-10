@@ -69,7 +69,7 @@ $('#searchform').submit(loadData);
 $(".text_input").autocomplete({
 	    source: function(request, response) {
 	        $.ajax({
-	            url: "http://en.wikipedia.org/w/api.php",
+	            url: "https://en.wikipedia.org/w/api.php",
 	            dataType: "jsonp",
 	            data: {
 	                'action': "opensearch",
